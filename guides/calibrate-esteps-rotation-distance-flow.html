@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>How to calibrate e-steps, rotation distance and flow (Marlin and Klipper) | PrintGrams</title><meta name="description" content="The three extruder calibrations that fix under- and over-extrusion, in order, with the exact commands for Marlin and Klipper and the maths behind each one."><link rel="canonical" href="https://printgrams.com/guides/calibrate-esteps-rotation-distance-flow"><meta property="og:type" content="article"><meta property="og:site_name" content="PrintGrams"><meta property="og:title" content="How to calibrate e-steps, rotation distance and flow (Marlin and Klipper) | PrintGrams"><meta property="og:description" content="The three extruder calibrations that fix under- and over-extrusion, in order, with the exact commands for Marlin and Klipper and the maths behind each one."><meta property="og:url" content="https://printgrams.com/guides/calibrate-esteps-rotation-distance-flow"><meta property="og:image" content="https://printgrams.com/og-default.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="How to calibrate e-steps, rotation distance and flow (Marlin and Klipper) | PrintGrams"><meta name="twitter:description" content="The three extruder calibrations that fix under- and over-extrusion, in order, with the exact commands for Marlin and Klipper and the maths behind each one."><meta name="twitter:image" content="https://printgrams.com/og-default.png"><meta name="theme-color" content="#f4f6f3" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#0f151b" media="(prefers-color-scheme: dark)"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="sitemap" href="/sitemap-index.xml"><link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to calibrate e-steps, rotation distance and flow (Marlin and Klipper)","description":"The three extruder calibrations that fix under- and over-extrusion, in order, with the exact commands for Marlin and Klipper and the maths behind each one.","datePublished":"2026-11-09T00:00:00.000Z","dateModified":"2026-11-09T00:00:00.000Z","author":{"@type":"Organization","name":"PrintGrams"},"publisher":{"@type":"Organization","name":"PrintGrams","url":"https://printgrams.com/"},"mainEntityOfPage":"https://printgrams.com/guides/calibrate-esteps-rotation-distance-flow"}</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3879868782950151" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/global.BYfWYnwU.css"></head><body><a class="sr-only" href="#main">Skip to content</a><header class="site-header"><div class="wrap"><a class="brand" href="/" aria-label="PrintGrams home"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="22" width="26" height="4" rx="1" fill="currentColor"></rect><rect x="5" y="16" width="22" height="4" rx="1" fill="currentColor" opacity=".75"></rect><rect x="7" y="10" width="18" height="4" rx="1" fill="currentColor" opacity=".5"></rect><rect x="9" y="4" width="14" height="4" rx="1" fill="#e4572e"></rect></svg>PrintGrams</a><nav class="nav" aria-label="Main"><a href="/tools">Tools</a><a href="/materials">Filaments</a><a href="/printers">Printers</a><a href="/guides" aria-current="page" class="hide-sm">Guides</a></nav></div></header><main id="main" class="wrap"><div class="page-head"><nav class="crumbs" aria-label="Breadcrumb"><a href="/">PrintGrams</a><span>/</span><a href="/guides">Guides</a></nav><h1>How to calibrate e-steps, rotation distance and flow (Marlin and Klipper)</h1><p class="small">Updated 9 November 2026</p></div><article class="prose"><p>Under-extrusion, gaps in top layers, bulging corners and walls that measure wrong almost always trace back to one of three settings. Do them in this order, because each one assumes the previous is right.</p>
+<h2 id="1-extruder-steps-marlin-or-rotation-distance-klipper">1. Extruder steps (Marlin) or rotation distance (Klipper)</h2>
+<p>This tells the firmware how far the extruder motor must turn to push 1 mm of filament. Factory values are approximate.</p>
+<ol>
+<li>Heat the hotend to the filament’s temperature and unload any pressure (retract a little, cut the filament square).</li>
+<li>Measure <strong>120 mm</strong> from where the filament enters the extruder and mark it with a marker.</li>
+<li>Command exactly 100 mm of extrusion at a slow speed: <code>G91</code>, <code>G1 E100 F100</code>, <code>G90</code> (Klipper: <code>G1 E100 F100</code> after <code>M83</code>).</li>
+<li>Measure from the extruder entry to your mark. If 20 mm remains, it extruded 100 mm; if 23 mm remains, it extruded 97 mm.</li>
+<li>Calculate:
+<ul>
+<li><strong>Marlin</strong>: new e-steps = old × 100 ÷ actually extruded. Save with <code>M92 E&lt;value&gt;</code> then <code>M500</code>.</li>
+<li><strong>Klipper</strong>: new rotation_distance = old × actually extruded ÷ 100. Edit <code>[extruder]</code> in <code>printer.cfg</code> and restart.</li>
+</ul>
+</li>
+</ol>
+<p>The <a href="/tools/flow-rate-calculator">calibration calculator</a> does the division and prints the exact command. Repeat once to confirm you land within 1 mm.</p>
+<h2 id="2-flow-extrusion-multiplier">2. Flow (extrusion multiplier)</h2>
+<p>With steps correct, flow corrects for the filament’s real diameter and how it behaves under pressure. It is per filament, not per printer.</p>
+<ol>
+<li>Slice a 20–30 mm hollow cube with <strong>1 wall, 0% infill, 0 top layers</strong> and your usual line width (say 0.45 mm).</li>
+<li>Print it and measure all four walls with calipers mid-height. Average them.</li>
+<li>New flow = current flow × target width ÷ measured width. Measured 0.48 mm against 0.45 target at 100% flow gives 93.75%.</li>
+<li>Put it in the slicer’s filament profile (OrcaSlicer/Bambu Studio: <em>Flow ratio</em>; PrusaSlicer: <em>Extrusion multiplier</em>; Cura: <em>Flow</em>).</li>
+</ol>
+<p>OrcaSlicer’s two-pass flow calibration automates this with a set of small squares; the result is the same number.</p>
+<h2 id="3-maximum-volumetric-flow">3. Maximum volumetric flow</h2>
+<p>Steps and flow are right, but the hotend still cannot melt plastic infinitely fast. Above its limit the extruder skips or the walls go rough.</p>
+<ul>
+<li>Flow in mm³/s = line width × layer height × speed. 0.42 × 0.2 × 150 = 12.6 mm³/s, which is already past a stock Ender 3 hotend.</li>
+<li>Find your limit with OrcaSlicer’s <em>Max flowrate</em> test, or start from the <a href="/reference/hotend-flow-rates">hotend table</a> and subtract 10%.</li>
+<li>Enter it in the filament profile as <em>Max volumetric speed</em>; the slicer will then slow down automatically wherever width × height × speed would exceed it.</li>
+</ul>
+<h2 id="what-each-one-fixes">What each one fixes</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely setting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Everything slightly under- or over-extruded on every filament</td>
+<td>E-steps / rotation distance</td>
+</tr>
+<tr>
+<td>One brand of filament prints gappy, another bulges</td>
+<td>Flow</td>
+</tr>
+<tr>
+<td>Fine at 0.12 mm layers, gaps and clicking at 0.28 mm or at high speed</td>
+<td>Max volumetric flow</td>
+</tr>
+<tr>
+<td>Dimensions right, but surfaces show regular banding</td>
+<td>Z axis: see <a href="/tools/magic-layer-heights">magic layer heights</a></td>
+</tr>
+</tbody>
+</table>
+</article><section class="related"><h2>Do the maths</h2><ul><li><a href="/tools/flow-rate-calculator">E-steps, Rotation Distance &amp; Flow Calibration</a></li><li><a href="/tools/magic-layer-heights">Magic Layer Heights</a></li></ul></section></main><footer class="site-footer"><div class="wrap"><div class="cols"><div><p class="ft-h">Calculators</p><ul><li><a href="/tools/3d-print-cost-calculator">Print cost calculator</a></li><li><a href="/tools/stl-analyzer">STL analyzer &amp; viewer</a></li><li><a href="/tools/filament-length-weight-converter">Length ↔ weight converter</a></li><li><a href="/tools/spool-remaining-calculator">Spool remaining calculator</a></li><li><a href="/tools/3d-printer-electricity-cost">Electricity cost calculator</a></li><li><a href="/tools/print-pricing-for-sellers">Etsy / eBay pricing</a></li><li><a href="/tools/resin-print-cost-calculator">Resin cost calculator</a></li></ul></div><div><p class="ft-h">More tools</p><ul><li><a href="/tools/print-time-estimator">Print time estimator</a></li><li><a href="/tools/magic-layer-heights">Magic layer heights</a></li><li><a href="/tools/flow-rate-calculator">E-steps &amp; flow calibration</a></li><li><a href="/tools/shrinkage-scale-calculator">Shrinkage &amp; scale</a></li><li><a href="/tools/filament-cost-per-gram-and-metre">Cost per gram / metre</a></li></ul></div><div><p class="ft-h">Reference</p><ul><li><a href="/materials">Filament data</a></li><li><a href="/printers">Printer power &amp; specs</a></li><li><a href="/reference/empty-spool-weights">Empty spool weights</a></li><li><a href="/reference/hotend-flow-rates">Hotend flow rates</a></li><li><a href="/reference/filament-drying">Filament drying chart</a></li><li><a href="/guides">Guides</a></li></ul></div><div><p class="ft-h">PrintGrams</p><ul><li><a href="/about">About</a></li><li><a href="/embed">Embed a calculator</a></li><li><a href="/contact">Contact</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/terms">Terms</a></li></ul></div></div><p>Free 3D printing calculators that run in your browser. Files you analyse never leave your device. © 2026 PrintGrams.</p></div></footer></body></html>

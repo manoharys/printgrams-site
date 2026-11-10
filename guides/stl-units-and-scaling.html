@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Why your STL imports tiny (or huge): units, scaling and fixing it | PrintGrams</title><meta name="description" content="STL files have no units. Here is how slicers guess, why models from inch-based CAD arrive 25.4× too small, how to tell millimetres from inches from the bounding box, and how to rescale without distorting."><link rel="canonical" href="https://printgrams.com/guides/stl-units-and-scaling"><meta property="og:type" content="article"><meta property="og:site_name" content="PrintGrams"><meta property="og:title" content="Why your STL imports tiny (or huge): units, scaling and fixing it | PrintGrams"><meta property="og:description" content="STL files have no units. Here is how slicers guess, why models from inch-based CAD arrive 25.4× too small, how to tell millimetres from inches from the bounding box, and how to rescale without distorting."><meta property="og:url" content="https://printgrams.com/guides/stl-units-and-scaling"><meta property="og:image" content="https://printgrams.com/og-default.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Why your STL imports tiny (or huge): units, scaling and fixing it | PrintGrams"><meta name="twitter:description" content="STL files have no units. Here is how slicers guess, why models from inch-based CAD arrive 25.4× too small, how to tell millimetres from inches from the bounding box, and how to rescale without distorting."><meta name="twitter:image" content="https://printgrams.com/og-default.png"><meta name="theme-color" content="#f4f6f3" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#0f151b" media="(prefers-color-scheme: dark)"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="sitemap" href="/sitemap-index.xml"><link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Why your STL imports tiny (or huge): units, scaling and fixing it","description":"STL files have no units. Here is how slicers guess, why models from inch-based CAD arrive 25.4× too small, how to tell millimetres from inches from the bounding box, and how to rescale without distorting.","datePublished":"2026-11-09T00:00:00.000Z","dateModified":"2026-11-09T00:00:00.000Z","author":{"@type":"Organization","name":"PrintGrams"},"publisher":{"@type":"Organization","name":"PrintGrams","url":"https://printgrams.com/"},"mainEntityOfPage":"https://printgrams.com/guides/stl-units-and-scaling"}</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3879868782950151" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/global.BYfWYnwU.css"></head><body><a class="sr-only" href="#main">Skip to content</a><header class="site-header"><div class="wrap"><a class="brand" href="/" aria-label="PrintGrams home"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="22" width="26" height="4" rx="1" fill="currentColor"></rect><rect x="5" y="16" width="22" height="4" rx="1" fill="currentColor" opacity=".75"></rect><rect x="7" y="10" width="18" height="4" rx="1" fill="currentColor" opacity=".5"></rect><rect x="9" y="4" width="14" height="4" rx="1" fill="#e4572e"></rect></svg>PrintGrams</a><nav class="nav" aria-label="Main"><a href="/tools">Tools</a><a href="/materials">Filaments</a><a href="/printers">Printers</a><a href="/guides" aria-current="page" class="hide-sm">Guides</a></nav></div></header><main id="main" class="wrap"><div class="page-head"><nav class="crumbs" aria-label="Breadcrumb"><a href="/">PrintGrams</a><span>/</span><a href="/guides">Guides</a></nav><h1>Why your STL imports tiny (or huge): units, scaling and fixing it</h1><p class="small">Updated 9 November 2026</p></div><article class="prose"><p>An STL file is a list of triangles with coordinates and nothing else. There is no field that says “these numbers are millimetres”. Every slicer assumes millimetres, so a model designed in inches arrives at 1/25.4 of its intended size, and a model exported from some CAD tools in centimetres or metres arrives 10× too small or 1,000× too large.</p>
+<h2 id="spotting-the-problem-from-the-bounding-box">Spotting the problem from the bounding box</h2>
+<p>Open the file in the <a href="/tools/stl-analyzer">STL analyzer</a> or your slicer and look at the X, Y, Z size.</p>
+<table>
+<thead>
+<tr>
+<th>Largest dimension</th>
+<th>Probably</th>
+<th>Multiply by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Under about 1.5</td>
+<td>inches</td>
+<td>25.4</td>
+</tr>
+<tr>
+<td>1.5 to 12</td>
+<td>centimetres (or a genuinely tiny part)</td>
+<td>10</td>
+</tr>
+<tr>
+<td>12 to 400</td>
+<td>millimetres</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Over 1,000</td>
+<td>micrometres or a scene exported in metres × 1000</td>
+<td>0.001</td>
+</tr>
+</tbody>
+</table>
+<p>The analyzer flags the first two cases automatically and offers the multiplier. A 3.5-unit “phone stand” is a 3.5-inch phone stand; a 0.79-unit cube is a 20 mm cube.</p>
+<h2 id="fixing-it">Fixing it</h2>
+<ul>
+<li><strong>Rescale in the slicer.</strong> Bambu Studio and OrcaSlicer: select the object, Scale tool, type 2540% (inches) or 1000% (cm). PrusaSlicer offers “Convert from inches” on import and in the right-click menu. Cura: Scale tool with uniform scaling locked, 2540%.</li>
+<li><strong>Re-export from CAD in millimetres.</strong> Fusion 360, Onshape, SolidWorks and FreeCAD all let you set the export unit; Tinkercad exports millimetres only. Fixing it at the source avoids rounding every time.</li>
+<li><strong>Do not rescale to “fit the bed”.</strong> Non-uniform scaling changes hole sizes, wall thicknesses and threads. Scale uniformly, and only by the unit factor.</li>
+</ul>
+<h2 id="scaling-for-fit-not-for-units">Scaling for fit, not for units</h2>
+<p>If a model is the right unit but the printed part measures slightly wrong, that is shrinkage or printer calibration, not units. ABS shrinks nearly 1%, nylon up to 2%, PLA about 0.3%. The <a href="/tools/shrinkage-scale-calculator">shrinkage calculator</a> gives the exact X/Y scale percentage from either the material or a measured test print. Holes need separate treatment: FDM holes print 0.15–0.3 mm smaller than modelled, so compensate them in the slicer rather than scaling the whole part.</p>
+<h2 id="3mf-avoids-the-problem">3MF avoids the problem</h2>
+<p>3MF files carry a unit declaration and are what Bambu Studio, OrcaSlicer and PrusaSlicer save as projects. If you publish models, export 3MF alongside STL and the import size will be right everywhere.</p>
+</article><section class="related"><h2>Do the maths</h2><ul><li><a href="/tools/stl-analyzer">STL Analyzer &amp; Viewer</a></li><li><a href="/tools/shrinkage-scale-calculator">Shrinkage &amp; Scale Compensation</a></li></ul></section></main><footer class="site-footer"><div class="wrap"><div class="cols"><div><p class="ft-h">Calculators</p><ul><li><a href="/tools/3d-print-cost-calculator">Print cost calculator</a></li><li><a href="/tools/stl-analyzer">STL analyzer &amp; viewer</a></li><li><a href="/tools/filament-length-weight-converter">Length ↔ weight converter</a></li><li><a href="/tools/spool-remaining-calculator">Spool remaining calculator</a></li><li><a href="/tools/3d-printer-electricity-cost">Electricity cost calculator</a></li><li><a href="/tools/print-pricing-for-sellers">Etsy / eBay pricing</a></li><li><a href="/tools/resin-print-cost-calculator">Resin cost calculator</a></li></ul></div><div><p class="ft-h">More tools</p><ul><li><a href="/tools/print-time-estimator">Print time estimator</a></li><li><a href="/tools/magic-layer-heights">Magic layer heights</a></li><li><a href="/tools/flow-rate-calculator">E-steps &amp; flow calibration</a></li><li><a href="/tools/shrinkage-scale-calculator">Shrinkage &amp; scale</a></li><li><a href="/tools/filament-cost-per-gram-and-metre">Cost per gram / metre</a></li></ul></div><div><p class="ft-h">Reference</p><ul><li><a href="/materials">Filament data</a></li><li><a href="/printers">Printer power &amp; specs</a></li><li><a href="/reference/empty-spool-weights">Empty spool weights</a></li><li><a href="/reference/hotend-flow-rates">Hotend flow rates</a></li><li><a href="/reference/filament-drying">Filament drying chart</a></li><li><a href="/guides">Guides</a></li></ul></div><div><p class="ft-h">PrintGrams</p><ul><li><a href="/about">About</a></li><li><a href="/embed">Embed a calculator</a></li><li><a href="/contact">Contact</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/terms">Terms</a></li></ul></div></div><p>Free 3D printing calculators that run in your browser. Files you analyse never leave your device. © 2026 PrintGrams.</p></div></footer></body></html>

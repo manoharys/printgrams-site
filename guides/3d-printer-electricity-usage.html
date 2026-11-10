@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>How much electricity does a 3D printer use? Measured figures | PrintGrams</title><meta name="description" content="Measured power draw for Bambu Lab, Creality, Prusa, Elegoo and Anycubic printers, why the PSU rating misleads, and what a month of printing really costs in the US, UK, EU and Australia."><link rel="canonical" href="https://printgrams.com/guides/3d-printer-electricity-usage"><meta property="og:type" content="article"><meta property="og:site_name" content="PrintGrams"><meta property="og:title" content="How much electricity does a 3D printer use? Measured figures | PrintGrams"><meta property="og:description" content="Measured power draw for Bambu Lab, Creality, Prusa, Elegoo and Anycubic printers, why the PSU rating misleads, and what a month of printing really costs in the US, UK, EU and Australia."><meta property="og:url" content="https://printgrams.com/guides/3d-printer-electricity-usage"><meta property="og:image" content="https://printgrams.com/og-default.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="How much electricity does a 3D printer use? Measured figures | PrintGrams"><meta name="twitter:description" content="Measured power draw for Bambu Lab, Creality, Prusa, Elegoo and Anycubic printers, why the PSU rating misleads, and what a month of printing really costs in the US, UK, EU and Australia."><meta name="twitter:image" content="https://printgrams.com/og-default.png"><meta name="theme-color" content="#f4f6f3" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#0f151b" media="(prefers-color-scheme: dark)"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="sitemap" href="/sitemap-index.xml"><link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How much electricity does a 3D printer use? Measured figures","description":"Measured power draw for Bambu Lab, Creality, Prusa, Elegoo and Anycubic printers, why the PSU rating misleads, and what a month of printing really costs in the US, UK, EU and Australia.","datePublished":"2026-11-09T00:00:00.000Z","dateModified":"2026-11-09T00:00:00.000Z","author":{"@type":"Organization","name":"PrintGrams"},"publisher":{"@type":"Organization","name":"PrintGrams","url":"https://printgrams.com/"},"mainEntityOfPage":"https://printgrams.com/guides/3d-printer-electricity-usage"}</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3879868782950151" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/global.BYfWYnwU.css"></head><body><a class="sr-only" href="#main">Skip to content</a><header class="site-header"><div class="wrap"><a class="brand" href="/" aria-label="PrintGrams home"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="22" width="26" height="4" rx="1" fill="currentColor"></rect><rect x="5" y="16" width="22" height="4" rx="1" fill="currentColor" opacity=".75"></rect><rect x="7" y="10" width="18" height="4" rx="1" fill="currentColor" opacity=".5"></rect><rect x="9" y="4" width="14" height="4" rx="1" fill="#e4572e"></rect></svg>PrintGrams</a><nav class="nav" aria-label="Main"><a href="/tools">Tools</a><a href="/materials">Filaments</a><a href="/printers">Printers</a><a href="/guides" aria-current="page" class="hide-sm">Guides</a></nav></div></header><main id="main" class="wrap"><div class="page-head"><nav class="crumbs" aria-label="Breadcrumb"><a href="/">PrintGrams</a><span>/</span><a href="/guides">Guides</a></nav><h1>How much electricity does a 3D printer use? Measured figures</h1><p class="small">Updated 9 November 2026</p></div><article class="prose"><p>A desktop 3D printer uses about as much electricity as a desktop PC: <strong>50–150 W while printing PLA</strong>, more for enclosed machines running ABS or PC. A 10-hour print is roughly 1 kWh — about $0.17 in the US, £0.26 in the UK, €0.38 in Germany, A$0.33 in Australia.</p>
+<h2 id="why-the-number-on-the-power-supply-is-wrong">Why the number on the power supply is wrong</h2>
+<p>An Ender 3 ships with a 350 W supply, and a Bambu P1S or X1 Carbon peaks near 350 W too. Those are peaks for heating the bed from cold. Once at temperature the bed cycles on and off and the average falls to a third or less. Measured with a plug meter:</p>
+<table>
+<thead>
+<tr>
+<th>Printer</th>
+<th>Idle</th>
+<th>Average printing PLA</th>
+<th>Peak</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bambu Lab A1 mini</td>
+<td>7 W</td>
+<td>~80 W</td>
+<td>150 W</td>
+</tr>
+<tr>
+<td>Bambu Lab P1S</td>
+<td>6 W</td>
+<td>~105 W</td>
+<td>350 W</td>
+</tr>
+<tr>
+<td>Bambu Lab X1 Carbon</td>
+<td>9 W</td>
+<td>~105 W PLA, ~150 W ABS</td>
+<td>350 W</td>
+</tr>
+<tr>
+<td>Creality Ender 3 V3 SE</td>
+<td>8 W</td>
+<td>~110 W</td>
+<td>300 W</td>
+</tr>
+<tr>
+<td>Prusa MK4S</td>
+<td>13 W</td>
+<td>~95 W</td>
+<td>240 W</td>
+</tr>
+</tbody>
+</table>
+<p>The full table with sources is on the <a href="/printers">printers page</a>; each printer has its own page with a calculator pre-set to its wattage.</p>
+<h2 id="what-drives-consumption">What drives consumption</h2>
+<ul>
+<li><strong>Bed temperature.</strong> The bed is 60–70% of the draw. PLA at 60 °C is cheap; ABS at 100 °C on a big bed is not.</li>
+<li><strong>Bed size.</strong> A 350 mm bed has about 2.5× the area of a 220 mm bed and heats accordingly.</li>
+<li><strong>Enclosure and chamber heating.</strong> The H2D’s active chamber heater can add 100–200 W.</li>
+<li><strong>Ambient temperature.</strong> A cold garage in winter can raise the average by 20–30%.</li>
+</ul>
+<h2 id="monthly-cost-for-typical-use">Monthly cost for typical use</h2>
+<p>Printing 6 hours a day on a 100 W machine is 18 kWh a month: about $3 in the US, £4.70 in the UK, €7 in Germany. Even a small print farm of five enclosed printers running 20 hours a day is roughly 540 kWh — $90 a month at US rates. Filament will cost far more than the electricity.</p>
+<p>Use the <a href="/tools/3d-printer-electricity-cost">electricity cost calculator</a> with your own tariff; it includes standby draw, which adds up when a printer is left on all month.</p>
+</article><section class="related"><h2>Do the maths</h2><ul><li><a href="/tools/3d-printer-electricity-cost">3D Printer Electricity Cost</a></li></ul></section></main><footer class="site-footer"><div class="wrap"><div class="cols"><div><p class="ft-h">Calculators</p><ul><li><a href="/tools/3d-print-cost-calculator">Print cost calculator</a></li><li><a href="/tools/stl-analyzer">STL analyzer &amp; viewer</a></li><li><a href="/tools/filament-length-weight-converter">Length ↔ weight converter</a></li><li><a href="/tools/spool-remaining-calculator">Spool remaining calculator</a></li><li><a href="/tools/3d-printer-electricity-cost">Electricity cost calculator</a></li><li><a href="/tools/print-pricing-for-sellers">Etsy / eBay pricing</a></li><li><a href="/tools/resin-print-cost-calculator">Resin cost calculator</a></li></ul></div><div><p class="ft-h">More tools</p><ul><li><a href="/tools/print-time-estimator">Print time estimator</a></li><li><a href="/tools/magic-layer-heights">Magic layer heights</a></li><li><a href="/tools/flow-rate-calculator">E-steps &amp; flow calibration</a></li><li><a href="/tools/shrinkage-scale-calculator">Shrinkage &amp; scale</a></li><li><a href="/tools/filament-cost-per-gram-and-metre">Cost per gram / metre</a></li></ul></div><div><p class="ft-h">Reference</p><ul><li><a href="/materials">Filament data</a></li><li><a href="/printers">Printer power &amp; specs</a></li><li><a href="/reference/empty-spool-weights">Empty spool weights</a></li><li><a href="/reference/hotend-flow-rates">Hotend flow rates</a></li><li><a href="/reference/filament-drying">Filament drying chart</a></li><li><a href="/guides">Guides</a></li></ul></div><div><p class="ft-h">PrintGrams</p><ul><li><a href="/about">About</a></li><li><a href="/embed">Embed a calculator</a></li><li><a href="/contact">Contact</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/terms">Terms</a></li></ul></div></div><p>Free 3D printing calculators that run in your browser. Files you analyse never leave your device. © 2026 PrintGrams.</p></div></footer></body></html>
