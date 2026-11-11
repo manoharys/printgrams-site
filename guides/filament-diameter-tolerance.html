@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Filament diameter tolerance: why 1.70 mm vs 1.75 mm matters | PrintGrams</title><meta name="description" content="A spool that measures 1.70 mm instead of 1.75 mm gives about 5.6% less plastic per millimetre. How to measure diameter, what tolerance to expect, and when to change your slicer."><link rel="canonical" href="https://printgrams.com/guides/filament-diameter-tolerance"><meta property="og:type" content="article"><meta property="og:site_name" content="PrintGrams"><meta property="og:title" content="Filament diameter tolerance: why 1.70 mm vs 1.75 mm matters | PrintGrams"><meta property="og:description" content="A spool that measures 1.70 mm instead of 1.75 mm gives about 5.6% less plastic per millimetre. How to measure diameter, what tolerance to expect, and when to change your slicer."><meta property="og:url" content="https://printgrams.com/guides/filament-diameter-tolerance"><meta property="og:image" content="https://printgrams.com/og-default.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Filament diameter tolerance: why 1.70 mm vs 1.75 mm matters | PrintGrams"><meta name="twitter:description" content="A spool that measures 1.70 mm instead of 1.75 mm gives about 5.6% less plastic per millimetre. How to measure diameter, what tolerance to expect, and when to change your slicer."><meta name="twitter:image" content="https://printgrams.com/og-default.png"><meta name="theme-color" content="#f4f6f3" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#0f151b" media="(prefers-color-scheme: dark)"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="sitemap" href="/sitemap-index.xml"><link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Filament diameter tolerance: why 1.70 mm vs 1.75 mm matters","description":"A spool that measures 1.70 mm instead of 1.75 mm gives about 5.6% less plastic per millimetre. How to measure diameter, what tolerance to expect, and when to change your slicer.","datePublished":"2026-11-11T00:00:00.000Z","dateModified":"2026-11-11T00:00:00.000Z","author":{"@type":"Organization","name":"PrintGrams"},"publisher":{"@type":"Organization","name":"PrintGrams","url":"https://printgrams.com/"},"mainEntityOfPage":"https://printgrams.com/guides/filament-diameter-tolerance"}</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3879868782950151" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/global.BYfWYnwU.css"></head><body><a class="sr-only" href="#main">Skip to content</a><header class="site-header"><div class="wrap"><a class="brand" href="/" aria-label="PrintGrams home"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="22" width="26" height="4" rx="1" fill="currentColor"></rect><rect x="5" y="16" width="22" height="4" rx="1" fill="currentColor" opacity=".75"></rect><rect x="7" y="10" width="18" height="4" rx="1" fill="currentColor" opacity=".5"></rect><rect x="9" y="4" width="14" height="4" rx="1" fill="#e4572e"></rect></svg>PrintGrams</a><nav class="nav" aria-label="Main"><a href="/tools">Tools</a><a href="/materials">Filaments</a><a href="/printers">Printers</a><a href="/guides" aria-current="page" class="hide-sm">Guides</a></nav></div></header><main id="main" class="wrap"><div class="page-head"><nav class="crumbs" aria-label="Breadcrumb"><a href="/">PrintGrams</a><span>/</span><a href="/guides">Guides</a></nav><h1>Filament diameter tolerance: why 1.70 mm vs 1.75 mm matters</h1><p class="small">Updated 11 November 2026</p></div><article class="prose"><p>Slicers assume your filament is exactly 1.75 mm across. If it isn’t, every move pushes out the wrong amount of plastic. Because the volume depends on the square of the diameter, small differences add up quickly:</p>
+<table>
+<thead>
+<tr>
+<th>Measured diameter</th>
+<th>Plastic per mm vs 1.75 mm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.70 mm</td>
+<td>−5.6% (under-extrusion)</td>
+</tr>
+<tr>
+<td>1.72 mm</td>
+<td>−3.4%</td>
+</tr>
+<tr>
+<td>1.73 mm</td>
+<td>−2.3%</td>
+</tr>
+<tr>
+<td>1.75 mm</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>1.77 mm</td>
+<td>+2.3%</td>
+</tr>
+<tr>
+<td>1.80 mm</td>
+<td>+5.8% (over-extrusion)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-tolerance-to-expect">What tolerance to expect</h2>
+<p>Most brands advertise <strong>±0.02 mm</strong> or <strong>±0.03 mm</strong>. Budget brands may say ±0.05 mm. Within ±0.02 mm, the error is under 2.3%, which you won’t see on most prints.</p>
+<h2 id="how-to-measure">How to measure</h2>
+<ol>
+<li>Use digital calipers. A cheap pair is fine at this accuracy.</li>
+<li>Measure in 5–10 places over a metre or two of filament.</li>
+<li>At each spot, measure twice at 90° to each other, because filament can be slightly oval.</li>
+<li>Average all the readings.</li>
+</ol>
+<h2 id="when-to-change-your-slicer">When to change your slicer</h2>
+<p>If the average is more than about 0.02 mm away from 1.75 mm, enter the measured value as the <strong>filament diameter</strong> in your slicer’s filament settings. Then run a flow test and enter the results in the <a href="/tools/flow-rate-calculator">flow rate calculator</a>, which corrects for any remaining difference.</p>
+<p>The <a href="/tools/filament-length-weight-converter">length and weight converter</a> accepts any diameter, so you can also check how many metres a spool really holds.</p>
+</article><section class="related"><h2>Do the maths</h2><ul><li><a href="/tools/flow-rate-calculator">E-steps, Rotation Distance &amp; Flow Calibration</a></li><li><a href="/tools/filament-length-weight-converter">Filament Length ↔ Weight Converter</a></li></ul></section></main><footer class="site-footer"><div class="wrap"><div class="cols"><div><p class="ft-h">Calculators</p><ul><li><a href="/tools/3d-print-cost-calculator">Print cost calculator</a></li><li><a href="/tools/stl-analyzer">STL analyzer &amp; viewer</a></li><li><a href="/tools/filament-length-weight-converter">Length ↔ weight converter</a></li><li><a href="/tools/spool-remaining-calculator">Spool remaining calculator</a></li><li><a href="/tools/3d-printer-electricity-cost">Electricity cost calculator</a></li><li><a href="/tools/print-pricing-for-sellers">Etsy / eBay pricing</a></li><li><a href="/tools/resin-print-cost-calculator">Resin cost calculator</a></li></ul></div><div><p class="ft-h">More tools</p><ul><li><a href="/tools/print-time-estimator">Print time estimator</a></li><li><a href="/tools/magic-layer-heights">Magic layer heights</a></li><li><a href="/tools/flow-rate-calculator">E-steps &amp; flow calibration</a></li><li><a href="/tools/shrinkage-scale-calculator">Shrinkage &amp; scale</a></li><li><a href="/tools/filament-cost-per-gram-and-metre">Cost per gram / metre</a></li></ul></div><div><p class="ft-h">Reference</p><ul><li><a href="/materials">Filament data</a></li><li><a href="/printers">Printer power &amp; specs</a></li><li><a href="/reference/empty-spool-weights">Empty spool weights</a></li><li><a href="/reference/hotend-flow-rates">Hotend flow rates</a></li><li><a href="/reference/filament-drying">Filament drying chart</a></li><li><a href="/guides">Guides</a></li></ul></div><div><p class="ft-h">PrintGrams</p><ul><li><a href="/about">About</a></li><li><a href="/embed">Embed a calculator</a></li><li><a href="/contact">Contact</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/terms">Terms</a></li></ul></div></div><p>Free 3D printing calculators that run in your browser. Files you analyse never leave your device. © 2026 PrintGrams.</p></div></footer></body></html>
